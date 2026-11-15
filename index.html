@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Anyway Comics — Independent comic archive.">
+<title>Anyway. — Comics</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --sub: #777777;
+  --line: #e8e8e8;
+  --soft: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'DM Sans', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* HEADER */
+
+header {
+  height: 72px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,.96);
+  z-index: 20;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.logo span {
+  font-weight: 400;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+nav a {
+  transition: opacity .2s;
+}
+
+nav a:hover {
+  opacity: .45;
+}
+
+.menu-button {
+  display: none;
+  font-size: 22px;
+}
+
+/* INTRO */
+
+.intro {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 75px 30px 55px;
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.intro h1 {
+  font-size: clamp(42px, 8vw, 82px);
+  letter-spacing: -5px;
+  line-height: .95;
+  font-weight: 800;
+}
+
+.intro p {
+  color: var(--sub);
+  font-size: 13px;
+  margin-top: 22px;
+  line-height: 1.8;
+}
+
+.intro-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-top: 35px;
+}
+
+.intro-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+/* FEED */
+
+.feed {
+  width: min(100% - 36px, 620px);
+  margin: 55px auto 100px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.section-heading h2 {
+  font-size: 19px;
+  letter-spacing: -.7px;
+}
+
+.section-heading span {
+  font-size: 10px;
+  color: var(--sub);
+  letter-spacing: 1px;
+}
+
+.post {
+  margin-bottom: 65px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  background: #111;
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.post-user {
+  flex: 1;
+}
+
+.post-user strong {
+  font-size: 12px;
+  display: block;
+}
+
+.post-user small {
+  color: var(--sub);
+  font-size: 10px;
+  display: block;
+  margin-top: 3px;
+}
+
+.post-more {
+  font-size: 22px;
+}
+
+/* CAROUSEL */
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #f1f1f1;
+  aspect-ratio: 4 / 5;
+  touch-action: pan-y;
+}
+
+.carousel-track {
+  height: 100%;
+  display: flex;
+  transition: transform .35s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: white;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.slide-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+.slide-fallback strong {
+  font-size: clamp(30px, 8vw, 65px);
+  letter-spacing: -4px;
+}
+
+.slide-fallback span {
+  font-size: 9px;
+  letter-spacing: 3px;
+  margin-top: 15px;
+}
+
+.slide-number {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: white;
+  background: rgba(0,0,0,.7);
+  border-radius: 30px;
+  padding: 6px 11px;
+  font-size: 10px;
+  z-index: 2;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+  background: rgba(255,255,255,.9);
+  color: #111;
+  border-radius: 50%;
+  font-size: 18px;
+  display: grid;
+  place-items: center;
+  z-index: 3;
+}
+
+.carousel-arrow.prev { left: 12px; }
+.carousel-arrow.next { right: 12px; }
+
+.carousel-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 13px 0 5px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #d4d4d4;
+}
+
+.dot.active {
+  background: #111;
+}
+
+/* POST CONTENT */
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin: 12px 0 15px;
+}
+
+.action {
+  font-size: 23px;
+  line-height: 1;
+}
+
+.action.active {
+  font-weight: bold;
+}
+
+.save-action {
+  margin-left: auto;
+}
+
+.likes {
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 9px;
+}
+
+.post-title {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  letter-spacing: -.3px;
+}
+
+.post-description {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #555;
+  white-space: pre-line;
+}
+
+.post-tags {
+  color: #888;
+  font-size: 11px;
+  margin-top: 10px;
+  line-height: 1.8;
+}
+
+.post-date {
+  font-size: 9px;
+  color: #aaa;
+  margin-top: 12px;
+  letter-spacing: 1px;
+}
+
+/* ABOUT */
+
+.about {
+  background: #111;
+  color: white;
+  padding: 65px 8%;
+}
+
+.about-inner {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.about-label {
+  color: #888;
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+.about h2 {
+  font-size: clamp(32px, 6vw, 60px);
+  letter-spacing: -3px;
+}
+
+.about p {
+  color: #aaa;
+  font-size: 12px;
+  line-height: 2;
+  margin-top: 20px;
+}
+
+.about-bottom {
+  border-top: 1px solid #333;
+  margin-top: 45px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 25px;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #999;
+}
+
+/* MOBILE */
+
+@media(max-width: 650px) {
+  header {
+    height: 60px;
+    padding: 0 20px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  nav {
+    gap: 14px;
+    font-size: 9px;
+  }
+
+  .intro {
+    padding: 65px 22px 40px;
+  }
+
+  .intro h1 {
+    letter-spacing: -3px;
+  }
+
+  .intro p {
+    font-size: 12px;
+  }
+
+  .feed {
+    width: 100%;
+    margin: 40px auto 75px;
+  }
+
+  .section-heading {
+    padding: 0 20px;
+  }
+
+  .post {
+    margin-bottom: 50px;
+  }
+
+  .post-header,
+  .post-actions,
+  .likes,
+  .post-title,
+  .post-description,
+  .post-tags,
+  .post-date,
+  .dots {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .post-header {
+    margin-bottom: 12px;
+  }
+
+  .carousel {
+    aspect-ratio: 4 / 5;
+  }
+
+  .about {
+    padding: 55px 25px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="#">ANYWAY<span>.</span></a>
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="#series">COMICS</a>
+    <a href="#about">ABOUT</a>
+  </nav>
+</header>
+
+<main id="home">
+
+  <section class="intro">
+    <div class="eyebrow">INDEPENDENT COMIC ARCHIVE</div>
+    <h1>Anyway<br>Comics.</h1>
+
+    <p>
+      A small place for stories and drawings.<br>
+      Created and collected by Anyway.
+    </p>
+
+    <div class="intro-bottom">
+      <div class="intro-tag">DRAW · CREATE · SHARE</div>
+      <div class="intro-tag">EST. 2026</div>
+    </div>
+  </section>
+
+  <section class="feed" id="series">
+    <div class="section-heading">
+      <h2>Latest Posts.</h2>
+      <span>RECENTLY UPLOADED</span>
+    </div>
+
+    <div id="post-feed"></div>
+  </section>
+
+</main>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-label">ABOUT ANYWAY</div>
+    <h2>We make<br>things.</h2>
+    <p>
+      Anyway is an independent creative studio.<br>
+      This is a place where our comics and illustrations live.
+    </p>
+
+    <div class="about-bottom">
+      <span>ANYWAY. — COMICS</span>
+      <span>ALL RIGHTS RESERVED.</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 ANYWAY. ALL RIGHTS RESERVED.
+</footer>
+
+<script>
+
+/* =====================================
+   POST DATA
+   Add or edit comics here.
+===================================== */
+
+const posts = [
+  {
+    id: 1,
+    username: "anyway",
+    date: "2026.11.15",
+    title: "Our First Comic.",
+    description: "Welcome to Anyway Comics.\nA new place for our little stories.",
+    tags: ["#ANYWAY", "#COMICS"],
+    likes: 0,
+    images: [
+      "images/comic-001/01.jpg",
+      "images/comic-001/02.jpg",
+      "images/comic-001/03.jpg"
+    ]
+  },
+  {
+    id: 2,
+    username: "anyway",
+    date: "2026.11.15",
+    title: "Another Story.",
+    description: "A little something is coming.",
+    tags: ["#ILLUSTRATION"],
+    likes: 0,
+    images: [
+      "images/comic-002/01.jpg",
+      "images/comic-002/02.jpg"
+    ]
+  }
+];
+
+/* =====================================
+   RENDER POSTS
+===================================== */
+
+const feed = document.getElementById("post-feed");
+
+posts.forEach(post => {
+  const article = document.createElement("article");
+  article.className = "post";
+
+  const slides = post.images.map((src, i) => `
+    <div class="slide">
+      <img src="${src}" alt="${post.title} - ${i + 1}"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="slide-fallback" style="display:none">
+        <strong>ANYWAY.</strong>
+        <span>YOUR COMIC GOES HERE · ${i + 1}</span>
+      </div>
+    </div>
+  `).join("");
+
+  const dots = post.images.map((_, i) => `
+    <button class="dot ${i === 0 ? "active" : ""}"
+      aria-label="Go to image ${i + 1}"
+      onclick="goToSlide(${post.id},${i})"></button>
+  `).join("");
+
+  article.innerHTML = `
+    <div class="post-header">
+      <div class="avatar">A</div>
+      <div class="post-user">
+        <strong>${post.username}</strong>
+        <small>Original Comics</small>
+      </div>
+      <button class="post-more" aria-label="More options">···</button>
+    </div>
+
+    <div class="carousel" id="carousel-${post.id}">
+      <div class="carousel-track" id="track-${post.id}">
+        ${slides}
+      </div>
+
+      <span class="slide-number" id="number-${post.id}">
+        1 / ${post.images.length}
+      </span>
+
+      <button class="carousel-arrow prev"
+        onclick="moveSlide(${post.id},-1)"
+        aria-label="Previous image">‹</button>
+
+      <button class="carousel-arrow next"
+        onclick="moveSlide(${post.id},1)"
+        aria-label="Next image">›</button>
+    </div>
+
+    <div class="dots" id="dots-${post.id}">
+      ${dots}
+    </div>
+
+    <div class="post-actions">
+      <button class="action like-action"
+        onclick="toggleLike(${post.id},this)"
+        aria-label="Like">♡</button>
+      <button class="action" aria-label="Comments">○</button>
+      <button class="action" aria-label="Share"
+        onclick="sharePost(${post.id})">↗</button>
+      <button class="action save-action"
+        aria-label="Bookmark"
+        onclick="this.classList.toggle('active')">♧</button>
+    </div>
+
+    <div class="likes" id="likes-${post.id}">
+      ${post.likes} likes
+    </div>
+
+    <div class="post-title">${post.title}</div>
+    <div class="post-description">${post.description}</div>
+    <div class="post-tags">${post.tags.join(" ")}</div>
+    <div class="post-date">${post.date}</div>
+  `;
+
+  feed.appendChild(article);
+});
+
+/* =====================================
+   CAROUSEL
+===================================== */
+
+const slidePositions = {};
+
+function updateSlide(id) {
+  const post = posts.find(p => p.id === id);
+  const index = slidePositions[id] || 0;
+
+  document.getElementById(`track-${id}`).style.transform =
+    `translateX(-${index * 100}%)`;
+
+  document.getElementById(`number-${id}`).textContent =
+    `${index + 1} / ${post.images.length}`;
+
+  const dots = document.querySelectorAll(`#dots-${id} .dot`);
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === index);
+  });
+
+  const carousel = document.getElementById(`carousel-${id}`);
+  carousel.querySelector(".prev").disabled = index === 0;
+  carousel.querySelector(".next").disabled =
+    index === post.images.length - 1;
+}
+
+function moveSlide(id, direction) {
+  const post = posts.find(p => p.id === id);
+  let index = slidePositions[id] || 0;
+
+  index += direction;
+  index = Math.max(0, Math.min(index, post.images.length - 1));
+
+  slidePositions[id] = index;
+  updateSlide(id);
+}
+
+function goToSlide(id, index) {
+  slidePositions[id] = index;
+  updateSlide(id);
+}
+
+posts.forEach(post => {
+  slidePositions[post.id] = 0;
+  updateSlide(post.id);
+
+  const carousel = document.getElementById(`carousel-${post.id}`);
+  let startX = 0;
+
+  carousel.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  }, {passive:true});
+
+  carousel.addEventListener("touchend", e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 45) {
+      moveSlide(post.id, diff > 0 ? 1 : -1);
+    }
+  }, {passive:true});
+});
+
+/* =====================================
+   LIKE
+   Local browser demo only.
+===================================== */
+
+const likedPosts = new Set();
+
+function toggleLike(id, button) {
+  const post = posts.find(p => p.id === id);
+
+  if (likedPosts.has(id)) {
+    likedPosts.delete(id);
+    post.likes = Math.max(0, post.likes - 1);
+    button.textContent = "♡";
+    button.classList.remove("active");
+  } else {
+    likedPosts.add(id);
+    post.likes++;
+    button.textContent = "♥";
+    button.classList.add("active");
+  }
+
+  document.getElementById(`likes-${id}`).textContent =
+    `${post.likes} likes`;
+}
+
+/* =====================================
+   SHARE
+===================================== */
+
+function sharePost(id) {
+  const url = location.href.split("#")[0] + `#post-${id}`;
+
+  if (navigator.share) {
+    navigator.share({
+      title: "Anyway Comics",
+      url: url
+    }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(url);
+    alert("Link copied!");
+  } else {
+    prompt("Copy this link:", url);
+  }
+}
+
+/* Add anchor IDs */
+posts.forEach(post => {
+  const el = document.getElementById(`carousel-${post.id}`);
+  el.closest(".post").id = `post-${post.id}`;
+});
+
+</script>
+
+</body>
+</html>
