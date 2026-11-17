@@ -1,22 +1,23 @@
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
-<meta name="description" content="Anyway Comics — Independent comic archive.">
-<title>Anyway. — Comics</title>
+<meta name="description" content="Anyway Comics — Original stories by Anyway Studio.">
+<title>Anyway Comics — Anyway Studio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
-
 :root {
-  --bg: #ffffff;
-  --fg: #111111;
-  --sub: #777777;
-  --line: #e8e8e8;
-  --soft: #f5f5f5;
+  --black: #111;
+  --white: #fff;
+  --gray: #777;
+  --line: #e7e7e7;
 }
 
 * {
@@ -25,10 +26,12 @@
   padding: 0;
 }
 
+html { scroll-behavior: smooth; }
+
 body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'DM Sans', Arial, sans-serif;
+  font-family: "DM Sans", Arial, sans-serif;
+  background: var(--white);
+  color: var(--black);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -37,465 +40,392 @@ a {
   text-decoration: none;
 }
 
-button {
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
 /* HEADER */
 
 header {
   height: 72px;
-  border-bottom: 1px solid var(--line);
+  padding: 0 7%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 7%;
+  border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
+  z-index: 10;
   background: rgba(255,255,255,.96);
-  z-index: 20;
 }
 
-.logo {
-  font-size: 25px;
-  font-weight: 800;
+.brand {
+  font-size: 24px;
+  font-weight: 900;
   letter-spacing: -1.5px;
 }
 
-.logo span {
-  font-weight: 400;
-}
+.brand span { font-weight: 400; }
 
 nav {
   display: flex;
   align-items: center;
   gap: 30px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
 }
 
 nav a {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
   transition: opacity .2s;
 }
 
-nav a:hover {
-  opacity: .45;
+nav a:hover { opacity: .45; }
+
+/* COMMON */
+
+.container {
+  max-width: 1120px;
+  margin: auto;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
-.menu-button {
-  display: none;
-  font-size: 22px;
-}
-
-/* INTRO */
-
-.intro {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 75px 30px 55px;
-  border-bottom: 1px solid var(--line);
-}
-
-.eyebrow {
+.section-label {
   font-size: 10px;
-  letter-spacing: 3px;
-  font-weight: 700;
-  margin-bottom: 18px;
-}
-
-.intro h1 {
-  font-size: clamp(42px, 8vw, 82px);
-  letter-spacing: -5px;
-  line-height: .95;
   font-weight: 800;
-}
-
-.intro p {
-  color: var(--sub);
-  font-size: 13px;
-  margin-top: 22px;
-  line-height: 1.8;
-}
-
-.intro-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  margin-top: 35px;
-}
-
-.intro-tag {
-  font-size: 10px;
-  letter-spacing: 2px;
-  font-weight: 700;
-}
-
-/* FEED */
-
-.feed {
-  width: min(100% - 36px, 620px);
-  margin: 55px auto 100px;
-}
-
-.section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  letter-spacing: 3px;
+  color: var(--gray);
   margin-bottom: 30px;
 }
 
-.section-heading h2 {
-  font-size: 19px;
-  letter-spacing: -.7px;
-}
+/* HERO */
 
-.section-heading span {
-  font-size: 10px;
-  color: var(--sub);
-  letter-spacing: 1px;
-}
-
-.post {
-  margin-bottom: 65px;
-}
-
-.post-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 15px;
-}
-
-.avatar {
-  width: 38px;
-  height: 38px;
-  background: #111;
-  color: white;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.post-user {
-  flex: 1;
-}
-
-.post-user strong {
-  font-size: 12px;
-  display: block;
-}
-
-.post-user small {
-  color: var(--sub);
-  font-size: 10px;
-  display: block;
-  margin-top: 3px;
-}
-
-.post-more {
-  font-size: 22px;
-}
-
-/* CAROUSEL */
-
-.carousel {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  background: #f1f1f1;
-  aspect-ratio: 4 / 5;
-  touch-action: pan-y;
-}
-
-.carousel-track {
-  height: 100%;
-  display: flex;
-  transition: transform .35s ease;
-}
-
-.slide {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: white;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-.slide-fallback {
-  width: 100%;
-  height: 100%;
+.hero {
+  min-height: 590px;
+  padding: 100px 25px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background: #111;
-  color: white;
+  align-items: center;
   text-align: center;
-  padding: 25px;
+  border-bottom: 1px solid var(--line);
 }
 
-.slide-fallback strong {
-  font-size: clamp(30px, 8vw, 65px);
-  letter-spacing: -4px;
-}
-
-.slide-fallback span {
-  font-size: 9px;
-  letter-spacing: 3px;
-  margin-top: 15px;
-}
-
-.slide-number {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  color: white;
-  background: rgba(0,0,0,.7);
-  border-radius: 30px;
-  padding: 6px 11px;
+.hero-label {
   font-size: 10px;
-  z-index: 2;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-bottom: 35px;
 }
 
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 35px;
-  height: 35px;
-  background: rgba(255,255,255,.9);
-  color: #111;
-  border-radius: 50%;
-  font-size: 18px;
-  display: grid;
-  place-items: center;
-  z-index: 3;
+.hero h1 {
+  font-size: clamp(65px, 12vw, 145px);
+  font-weight: 900;
+  letter-spacing: -.095em;
+  line-height: .85;
 }
 
-.carousel-arrow.prev { left: 12px; }
-.carousel-arrow.next { right: 12px; }
-
-.carousel-arrow:disabled {
-  opacity: 0;
-  pointer-events: none;
+.hero h1 span {
+  display: block;
+  font-size: .47em;
+  letter-spacing: .12em;
+  margin-top: 22px;
 }
 
-.dots {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  padding: 13px 0 5px;
+.hero-description {
+  max-width: 440px;
+  margin-top: 38px;
+  font-size: 13px;
+  line-height: 2;
+  color: var(--gray);
 }
 
-.dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #d4d4d4;
-}
-
-.dot.active {
-  background: #111;
-}
-
-/* POST CONTENT */
-
-.post-actions {
+.hero-meta {
+  margin-top: 65px;
   display: flex;
   align-items: center;
-  gap: 17px;
-  margin: 12px 0 15px;
+  gap: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
-.action {
-  font-size: 23px;
+/* INTRODUCTION */
+
+.introduction {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.introduction h2 {
+  font-size: clamp(38px, 7vw, 76px);
+  letter-spacing: -.075em;
+  line-height: 1.05;
+  max-width: 800px;
+}
+
+.introduction p {
+  max-width: 560px;
+  margin-top: 35px;
+  font-size: 14px;
+  line-height: 2.1;
+  color: #666;
+}
+
+.intro-meta {
+  display: flex;
+  gap: 55px;
+  margin-top: 65px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+}
+
+.meta-item strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.meta-item span {
+  font-size: 10px;
+  color: var(--gray);
+}
+
+/* EXPLORE */
+
+.explore {
+  background: var(--black);
+  color: var(--white);
+  padding: 100px 30px;
+}
+
+.explore-inner {
+  max-width: 1120px;
+  margin: auto;
+}
+
+.explore .section-label { color: #888; }
+
+.explore h2 {
+  font-size: clamp(40px, 8vw, 85px);
+  letter-spacing: -.07em;
   line-height: 1;
 }
 
-.action.active {
-  font-weight: bold;
-}
-
-.save-action {
-  margin-left: auto;
-}
-
-.likes {
-  font-size: 11px;
-  font-weight: 700;
-  margin-bottom: 9px;
-}
-
-.post-title {
-  font-size: 15px;
-  font-weight: 800;
-  margin-bottom: 6px;
-  letter-spacing: -.3px;
-}
-
-.post-description {
-  font-size: 12px;
-  line-height: 1.8;
-  color: #555;
-  white-space: pre-line;
-}
-
-.post-tags {
-  color: #888;
-  font-size: 11px;
-  margin-top: 10px;
-  line-height: 1.8;
-}
-
-.post-date {
-  font-size: 9px;
+.explore p {
+  margin-top: 25px;
   color: #aaa;
-  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.explore-link {
+  margin-top: 45px;
+  width: 100%;
+  max-width: 400px;
+  min-height: 65px;
+  padding: 0 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #555;
+  font-size: 12px;
+  font-weight: 800;
   letter-spacing: 1px;
+  transition: background .25s, color .25s;
+}
+
+.explore-link:hover {
+  background: white;
+  color: black;
+}
+
+.explore-link span:last-child { font-size: 20px; }
+
+/* POSTS */
+
+.posts {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.posts h2 {
+  font-size: clamp(38px, 7vw, 75px);
+  letter-spacing: -.075em;
+  line-height: 1.05;
+}
+
+.posts-empty {
+  margin-top: 45px;
+  min-height: 270px;
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 35px 20px;
+}
+
+.empty-icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--black);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+
+.posts-empty h3 {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -.4px;
+}
+
+.posts-empty p {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.9;
 }
 
 /* ABOUT */
 
 .about {
-  background: #111;
-  color: white;
-  padding: 65px 8%;
-}
-
-.about-inner {
-  max-width: 1100px;
-  margin: auto;
-}
-
-.about-label {
-  color: #888;
-  font-size: 10px;
-  letter-spacing: 3px;
-  margin-bottom: 20px;
+  padding-top: 120px;
+  padding-bottom: 120px;
+  border-top: 1px solid var(--line);
 }
 
 .about h2 {
-  font-size: clamp(32px, 6vw, 60px);
-  letter-spacing: -3px;
+  font-size: clamp(38px, 7vw, 75px);
+  letter-spacing: -.075em;
 }
 
-.about p {
-  color: #aaa;
-  font-size: 12px;
-  line-height: 2;
-  margin-top: 20px;
+.about-description {
+  max-width: 540px;
+  margin-top: 30px;
+  color: #666;
+  font-size: 13px;
+  line-height: 2.1;
 }
 
 .about-bottom {
-  border-top: 1px solid #333;
-  margin-top: 45px;
-  padding-top: 20px;
+  margin-top: 65px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
-  color: #777;
-  font-size: 9px;
+  align-items: center;
+}
+
+.about-bottom strong {
+  font-size: 13px;
+  letter-spacing: -.5px;
+}
+
+.about-bottom span {
+  color: var(--gray);
+  font-size: 10px;
   letter-spacing: 1px;
 }
 
 /* FOOTER */
 
 footer {
-  padding: 25px;
-  text-align: center;
+  background: var(--black);
+  color: var(--white);
+  padding: 35px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+footer strong {
+  font-size: 13px;
+  letter-spacing: -.5px;
+}
+
+footer span {
+  color: #888;
   font-size: 9px;
-  letter-spacing: 2px;
-  color: #999;
+  letter-spacing: 1px;
 }
 
 /* MOBILE */
 
 @media(max-width: 650px) {
   header {
-    height: 60px;
+    height: 62px;
     padding: 0 20px;
   }
 
-  .logo {
-    font-size: 22px;
+  .brand { font-size: 21px; }
+
+  nav { gap: 16px; }
+
+  nav a { font-size: 9px; }
+
+  .hero {
+    min-height: 510px;
+    padding: 80px 20px;
   }
 
-  nav {
-    gap: 14px;
-    font-size: 9px;
+  .hero h1 { letter-spacing: -.09em; }
+
+  .hero-description { font-size: 12px; }
+
+  .introduction,
+  .posts,
+  .about {
+    padding-top: 85px;
+    padding-bottom: 85px;
   }
 
-  .intro {
-    padding: 65px 22px 40px;
+  .introduction h2,
+  .about h2,
+  .posts h2 {
+    letter-spacing: -.06em;
   }
 
-  .intro h1 {
-    letter-spacing: -3px;
-  }
-
-  .intro p {
+  .introduction p,
+  .about-description {
     font-size: 12px;
   }
 
-  .feed {
-    width: 100%;
-    margin: 40px auto 75px;
+  .intro-meta {
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 45px;
   }
 
-  .section-heading {
-    padding: 0 20px;
+  .explore { padding: 80px 22px; }
+
+  .explore h2 { letter-spacing: -.06em; }
+
+  .posts-empty {
+    min-height: 240px;
   }
 
-  .post {
-    margin-bottom: 50px;
+  .about-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
 
-  .post-header,
-  .post-actions,
-  .likes,
-  .post-title,
-  .post-description,
-  .post-tags,
-  .post-date,
-  .dots {
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-
-  .post-header {
-    margin-bottom: 12px;
-  }
-
-  .carousel {
-    aspect-ratio: 4 / 5;
-  }
-
-  .about {
-    padding: 55px 25px;
+  footer {
+    padding: 30px 20px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
 @media(prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
   *, *::before, *::after {
-    scroll-behavior: auto !important;
-    transition: none !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
   }
 }
 </style>
@@ -504,298 +434,169 @@ footer {
 <body>
 
 <header>
-  <a class="logo" href="#">ANYWAY<span>.</span></a>
+  <a href="#" class="brand">ANYWAY<span>.</span></a>
+
   <nav>
     <a href="#home">HOME</a>
-    <a href="#series">COMICS</a>
+    <a href="#introduction">COMICS</a>
+    <a href="#posts">POSTS</a>
     <a href="#about">ABOUT</a>
   </nav>
 </header>
 
-<main id="home">
+<main>
 
-  <section class="intro">
-    <div class="eyebrow">INDEPENDENT COMIC ARCHIVE</div>
-    <h1>Anyway<br>Comics.</h1>
+  <!-- HERO -->
 
-    <p>
-      A small place for stories and drawings.<br>
-      Created and collected by Anyway.
+  <section class="hero" id="home">
+    <div class="hero-label">AN ANYWAY STUDIO PROJECT</div>
+
+    <h1>
+      ANYWAY.
+      <span>COMICS</span>
+    </h1>
+
+    <p class="hero-description">
+      Stories, characters and little worlds.<br>
+      A place where imagination becomes something real.
     </p>
 
-    <div class="intro-bottom">
-      <div class="intro-tag">DRAW · CREATE · SHARE</div>
-      <div class="intro-tag">EST. 2026</div>
+    <div class="hero-meta">
+      <span>DRAW</span>
+      <span>·</span>
+      <span>CREATE</span>
+      <span>·</span>
+      <span>SHARE</span>
     </div>
   </section>
 
-  <section class="feed" id="series">
-    <div class="section-heading">
-      <h2>Latest Posts.</h2>
-      <span>RECENTLY UPLOADED</span>
+  <!-- INTRODUCTION -->
+
+  <section class="introduction container" id="introduction">
+
+    <div class="section-label">01 — INTRODUCTION</div>
+
+    <h2>
+      A little world<br>
+      of endless stories.
+    </h2>
+
+    <p>
+      Anyway Comics is an independent comic project
+      by Anyway Studio.
+
+      From everyday moments to imaginary adventures,
+      we create characters and stories that anyone
+      can enjoy, regardless of language or background.
+
+      Every drawing has a story.
+      Every story has a world of its own.
+    </p>
+
+    <div class="intro-meta">
+      <div class="meta-item">
+        <strong>PROJECT</strong>
+        <span>Anyway Comics</span>
+      </div>
+
+      <div class="meta-item">
+        <strong>CREATED BY</strong>
+        <span>Anyway Studio</span>
+      </div>
+
+      <div class="meta-item">
+        <strong>FORMAT</strong>
+        <span>Original Comics</span>
+      </div>
     </div>
 
-    <div id="post-feed"></div>
+  </section>
+
+  <!-- EXPLORE -->
+
+  <section class="explore">
+    <div class="explore-inner">
+
+      <div class="section-label">02 — EXPLORE</div>
+
+      <h2>
+        Discover<br>
+        our comics.
+      </h2>
+
+      <p>
+        Explore our original comics,<br>
+        characters and stories.
+      </p>
+
+      <a href="comics.html" class="explore-link">
+        <span>VIEW ALL COMICS</span>
+        <span>↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- POSTS -->
+
+  <section class="posts container" id="posts">
+
+    <div class="section-label">03 — LATEST POSTS</div>
+
+    <h2>
+      Our stories<br>
+      are waiting.
+    </h2>
+
+    <div class="posts-empty">
+
+      <div class="empty-icon">✳</div>
+
+      <h3>아직 연재를 시작하지 않았어요.</h3>
+
+      <p>
+        새로운 이야기들이 준비되고 있습니다.<br>
+        Anyway Comics의 첫 번째 만화를 기대해 주세요.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section class="about container" id="about">
+
+    <div class="section-label">04 — ABOUT</div>
+
+    <h2>
+      Made by<br>
+      Anyway Studio.
+    </h2>
+
+    <p class="about-description">
+      Anyway Studio is an independent creative studio
+      focused on making things.
+
+      We create, experiment and bring ideas to life
+      through different forms of creativity.
+
+      Anyway Comics is one of those creations.
+    </p>
+
+    <div class="about-bottom">
+      <strong>ANYWAY. — CREATIVE STUDIO</strong>
+      <span>INDEPENDENTLY CREATED</span>
+    </div>
+
   </section>
 
 </main>
 
-<section class="about" id="about">
-  <div class="about-inner">
-    <div class="about-label">ABOUT ANYWAY</div>
-    <h2>We make<br>things.</h2>
-    <p>
-      Anyway is an independent creative studio.<br>
-      This is a place where our comics and illustrations live.
-    </p>
-
-    <div class="about-bottom">
-      <span>ANYWAY. — COMICS</span>
-      <span>ALL RIGHTS RESERVED.</span>
-    </div>
-  </div>
-</section>
-
 <footer>
-  © 2026 ANYWAY. ALL RIGHTS RESERVED.
+  <strong>ANYWAY.</strong>
+  <span>ALL RIGHTS RESERVED BY ANYWAY STUDIO.</span>
 </footer>
-
-<script>
-
-/* =====================================
-   POST DATA
-   Add or edit comics here.
-===================================== */
-
-const posts = [
-  {
-    id: 1,
-    username: "anyway",
-    date: "2026.11.15",
-    title: "Our First Comic.",
-    description: "Welcome to Anyway Comics.\nA new place for our little stories.",
-    tags: ["#ANYWAY", "#COMICS"],
-    likes: 0,
-    images: [
-      "images/comic-001/01.jpg",
-      "images/comic-001/02.jpg",
-      "images/comic-001/03.jpg"
-    ]
-  },
-  {
-    id: 2,
-    username: "anyway",
-    date: "2026.11.15",
-    title: "Another Story.",
-    description: "A little something is coming.",
-    tags: ["#ILLUSTRATION"],
-    likes: 0,
-    images: [
-      "images/comic-002/01.jpg",
-      "images/comic-002/02.jpg"
-    ]
-  }
-];
-
-/* =====================================
-   RENDER POSTS
-===================================== */
-
-const feed = document.getElementById("post-feed");
-
-posts.forEach(post => {
-  const article = document.createElement("article");
-  article.className = "post";
-
-  const slides = post.images.map((src, i) => `
-    <div class="slide">
-      <img src="${src}" alt="${post.title} - ${i + 1}"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="slide-fallback" style="display:none">
-        <strong>ANYWAY.</strong>
-        <span>YOUR COMIC GOES HERE · ${i + 1}</span>
-      </div>
-    </div>
-  `).join("");
-
-  const dots = post.images.map((_, i) => `
-    <button class="dot ${i === 0 ? "active" : ""}"
-      aria-label="Go to image ${i + 1}"
-      onclick="goToSlide(${post.id},${i})"></button>
-  `).join("");
-
-  article.innerHTML = `
-    <div class="post-header">
-      <div class="avatar">A</div>
-      <div class="post-user">
-        <strong>${post.username}</strong>
-        <small>Original Comics</small>
-      </div>
-      <button class="post-more" aria-label="More options">···</button>
-    </div>
-
-    <div class="carousel" id="carousel-${post.id}">
-      <div class="carousel-track" id="track-${post.id}">
-        ${slides}
-      </div>
-
-      <span class="slide-number" id="number-${post.id}">
-        1 / ${post.images.length}
-      </span>
-
-      <button class="carousel-arrow prev"
-        onclick="moveSlide(${post.id},-1)"
-        aria-label="Previous image">‹</button>
-
-      <button class="carousel-arrow next"
-        onclick="moveSlide(${post.id},1)"
-        aria-label="Next image">›</button>
-    </div>
-
-    <div class="dots" id="dots-${post.id}">
-      ${dots}
-    </div>
-
-    <div class="post-actions">
-      <button class="action like-action"
-        onclick="toggleLike(${post.id},this)"
-        aria-label="Like">♡</button>
-      <button class="action" aria-label="Comments">○</button>
-      <button class="action" aria-label="Share"
-        onclick="sharePost(${post.id})">↗</button>
-      <button class="action save-action"
-        aria-label="Bookmark"
-        onclick="this.classList.toggle('active')">♧</button>
-    </div>
-
-    <div class="likes" id="likes-${post.id}">
-      ${post.likes} likes
-    </div>
-
-    <div class="post-title">${post.title}</div>
-    <div class="post-description">${post.description}</div>
-    <div class="post-tags">${post.tags.join(" ")}</div>
-    <div class="post-date">${post.date}</div>
-  `;
-
-  feed.appendChild(article);
-});
-
-/* =====================================
-   CAROUSEL
-===================================== */
-
-const slidePositions = {};
-
-function updateSlide(id) {
-  const post = posts.find(p => p.id === id);
-  const index = slidePositions[id] || 0;
-
-  document.getElementById(`track-${id}`).style.transform =
-    `translateX(-${index * 100}%)`;
-
-  document.getElementById(`number-${id}`).textContent =
-    `${index + 1} / ${post.images.length}`;
-
-  const dots = document.querySelectorAll(`#dots-${id} .dot`);
-  dots.forEach((dot, i) => {
-    dot.classList.toggle("active", i === index);
-  });
-
-  const carousel = document.getElementById(`carousel-${id}`);
-  carousel.querySelector(".prev").disabled = index === 0;
-  carousel.querySelector(".next").disabled =
-    index === post.images.length - 1;
-}
-
-function moveSlide(id, direction) {
-  const post = posts.find(p => p.id === id);
-  let index = slidePositions[id] || 0;
-
-  index += direction;
-  index = Math.max(0, Math.min(index, post.images.length - 1));
-
-  slidePositions[id] = index;
-  updateSlide(id);
-}
-
-function goToSlide(id, index) {
-  slidePositions[id] = index;
-  updateSlide(id);
-}
-
-posts.forEach(post => {
-  slidePositions[post.id] = 0;
-  updateSlide(post.id);
-
-  const carousel = document.getElementById(`carousel-${post.id}`);
-  let startX = 0;
-
-  carousel.addEventListener("touchstart", e => {
-    startX = e.touches[0].clientX;
-  }, {passive:true});
-
-  carousel.addEventListener("touchend", e => {
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 45) {
-      moveSlide(post.id, diff > 0 ? 1 : -1);
-    }
-  }, {passive:true});
-});
-
-/* =====================================
-   LIKE
-   Local browser demo only.
-===================================== */
-
-const likedPosts = new Set();
-
-function toggleLike(id, button) {
-  const post = posts.find(p => p.id === id);
-
-  if (likedPosts.has(id)) {
-    likedPosts.delete(id);
-    post.likes = Math.max(0, post.likes - 1);
-    button.textContent = "♡";
-    button.classList.remove("active");
-  } else {
-    likedPosts.add(id);
-    post.likes++;
-    button.textContent = "♥";
-    button.classList.add("active");
-  }
-
-  document.getElementById(`likes-${id}`).textContent =
-    `${post.likes} likes`;
-}
-
-/* =====================================
-   SHARE
-===================================== */
-
-function sharePost(id) {
-  const url = location.href.split("#")[0] + `#post-${id}`;
-
-  if (navigator.share) {
-    navigator.share({
-      title: "Anyway Comics",
-      url: url
-    }).catch(() => {});
-  } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(url);
-    alert("Link copied!");
-  } else {
-    prompt("Copy this link:", url);
-  }
-}
-
-/* Add anchor IDs */
-posts.forEach(post => {
-  const el = document.getElementById(`carousel-${post.id}`);
-  el.closest(".post").id = `post-${post.id}`;
-});
-
-</script>
 
 </body>
 </html>
